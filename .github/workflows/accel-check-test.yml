@@ -64,6 +64,8 @@ jobs:
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
           echo "Emulator has finished booting"
           $ANDROID_HOME/platform-tools/adb devices
+          "$ANDROID_HOME"/platform-tools/adb root
+          "$ANDROID_HOME"/platform-tools/adb shell 'su;setprop debug.hwui.renderer skiagl;stop;start'
           sleep 15
           screencapture screenshot.jpg
           $ANDROID_HOME/platform-tools/adb exec-out screencap -p > emulator.png
